@@ -40,15 +40,33 @@ app.post("/api/notes/add", (req, res) => {
 });
 
 app.delete("/api/notes/remove/:noteId", (req, res) => {
-  const noteId = req.params.noteId;
-
   try {
+    const noteId = req.params.noteId;
     const noteIndex = storage.findIndex((n) => n.id === noteId);
     storage.splice(noteIndex, 1);
+
+    res.send(200).json({ message: 'OK'});
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
-})
+});
+
+app.put("/api/notes/edit/:noteId", (req, res) => {
+  try {
+    const noteId = req.params.noteId;
+    const newContent = req.body.data;
+    const noteIndex = storage.findIndex((n) => n.id === noteId);
+
+    storage[noteIndex] = {
+      ...storage[noteIndex],
+      content: newContent
+    };
+
+    res.status(200).json(storage[noteIndex])
+  } catch(error) {
+    res.status(400).json({ message: error.message });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);
