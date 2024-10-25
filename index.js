@@ -2,6 +2,7 @@ import express from "express";
 import { configDotenv } from "dotenv";
 import cors  from "cors";
 import { generateId } from "./services/generateId.js";
+import { storage } from "./storage.js";
 
 configDotenv();
 
@@ -15,7 +16,7 @@ app.get("/", (req, res) => {
    const id =  generateId();
    console.log(id);
    
-  res.send("Hello World!");
+  res.status(200).json(storage)
 });
 
 app.listen(PORT, () => {
