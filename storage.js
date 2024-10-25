@@ -1,7 +1,7 @@
 import { generateId } from "./services/generateId.js"
 
 
-export const storage = [
+export let storage = [
     {
         id: generateId(),
         content: 'test'
