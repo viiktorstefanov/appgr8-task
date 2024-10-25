@@ -45,7 +45,9 @@ app.delete("/api/notes/remove/:noteId", (req, res) => {
     const noteIndex = storage.findIndex((n) => n.id === noteId);
     storage.splice(noteIndex, 1);
 
-    res.send(200).json({ message: 'OK'});
+    console.log(`Note with id:  ${noteId} was removed successful`)
+
+    res.status(200).json({ message: 'OK'});
   } catch (error) {
     res.status(400).json({ message: error.message });
   }
@@ -62,7 +64,9 @@ app.put("/api/notes/edit/:noteId", (req, res) => {
       content: newContent
     };
 
-    res.status(200).json(storage[noteIndex])
+    res.status(200).json(storage[noteIndex]);
+
+    console.log('Edited note sucessful');
   } catch(error) {
     res.status(400).json({ message: error.message });
   }
